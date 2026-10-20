@@ -12,6 +12,8 @@ const ORG_EXTENSION_VISIBILITY = {
 }
 
 module.exports = {
+	TENANT_CODE_HEADER: process.env.TENANT_CODE_HEADER_NAME.toLowerCase(),
+	ORG_ID_HEADER: process.env.ORG_ID_HEADER_NAME.toLowerCase(),
 	ORG_EXTENSION_VISIBILITY,
 	ACTIVE_STATUS: 'active',
 	PUBLISHED: 'published',

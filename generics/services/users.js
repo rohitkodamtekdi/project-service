@@ -474,7 +474,7 @@ const fetchPublicTenantDetails = function (tenantId) {
 			const options = {
 				headers: {
 					'content-type': 'application/json',
-					'x-tenant-code': tenantId,
+					[CONSTANTS.common.TENANT_CODE_HEADER]: tenantId,
 				},
 			}
 			request.get(url, options, publicBranding)
@@ -669,14 +669,13 @@ const updateProfile = function (userId, updateData, userToken, tenantCode, organ
 			// Include organization_id in the body (required by org-admin endpoint)
 			const bodyData = {
 				...updateData,
-				organization_id: organizationId,
 			}
 
 			const headers = {
 				'Content-Type': 'application/json',
-				internal_access_token: process.env.INTERNAL_ACCESS_TOKEN,
 				'x-auth-token': userToken,
-				tenantId: tenantCode,
+				[CONSTANTS.common.TENANT_CODE_HEADER]: tenantCode,
+				[CONSTANTS.common.ORG_ID_HEADER]: organizationId,
 			}
 
 			request.post({ url, headers, body: bodyData, json: true }, callBack)
