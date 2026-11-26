@@ -80,4 +80,45 @@ module.exports = class IdpTemplates extends Abstract {
 			throw toError(error)
 		}
 	}
+
+	/**
+	 * @api {post} /project/v1/idpTemplates/createTask/:templateId
+	 * Add a task at the end of a project template. Only new IDPs get it.
+	 * @apiVersion 1.0.0
+	 * @apiGroup IDP Templates
+	 * @apiHeader {String} x-auth-token Admin user token
+	 * @apiParamExample {json} Request:
+	 * { "name": "Organize the Digital Skills Training", "description": "...",
+	 *   "supportOfferingType": "training", "sessionCategory": "livelihoods" }
+	 * @apiUse successBody
+	 * @apiUse errorBody
+	 */
+	async createTask(req) {
+		try {
+			const result = await idpTemplatesHelper.createTask(req.params._id, req.body, req.userDetails)
+			return { message: result.message, result: result.data }
+		} catch (error) {
+			throw toError(error)
+		}
+	}
+
+	/**
+	 * @api {post} /project/v1/idpTemplates/reorderTasks/:templateId
+	 * Save a new order for the tasks of a project template. Only new IDPs follow it.
+	 * @apiVersion 1.0.0
+	 * @apiGroup IDP Templates
+	 * @apiHeader {String} x-auth-token Admin user token
+	 * @apiParamExample {json} Request:
+	 * { "taskIds": ["69d752ff01a4840014b268b0", "69d752ff01a4840014b268ac"] }
+	 * @apiUse successBody
+	 * @apiUse errorBody
+	 */
+	async reorderTasks(req) {
+		try {
+			const result = await idpTemplatesHelper.reorderTasks(req.params._id, req.body, req.userDetails)
+			return { message: result.message, result: result.data }
+		} catch (error) {
+			throw toError(error)
+		}
+	}
 }
